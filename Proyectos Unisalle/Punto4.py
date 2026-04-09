@@ -1,4 +1,4 @@
-#EJERCICIO 4: Suma de Valores Máximos y Mínimos
+# EJERCICIO 4: Suma de Valores Máximos y Mínimos
 print("Suma de Valores Máximos y Mínimos")
 
 cantidadNumeros = int(input("Ingrese la cantidad de números positivos: "))
@@ -9,13 +9,10 @@ menor = numero
 
 for i in range(2, cantidadNumeros + 1):
     numero = float(input(f"Ingrese el dato {i}: "))
-    
     if numero > mayor:
         mayor = numero
-        
     if numero < menor:
         menor = numero
-    
 suma = mayor + menor
 
 print("El valor máximo es:", int(mayor))
