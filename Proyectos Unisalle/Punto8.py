@@ -27,7 +27,7 @@ for temp in temperaturas:
     if temp < menor:
         menor = temp
 
-print("Temperatura promedio del mes:", promedio)
+print(f"Temperatura promedio del mes: {promedio:.2f}")
 print("Cantidad de días por encima del promedio:", encimadelpromedio)
 print("Cantidad de días por debajo del promedio:", debajodelpromedio)
 print("Temperatura máxima registrada:", mayor)
