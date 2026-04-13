@@ -1,7 +1,9 @@
 # EXERCISE 1: SUM OF ODD NUMBERS
 print("--- ODD NUMBER SUMMATION REPORT ---")
 
-n = abs(int(input("Please enter a positive int (N): ")))  # abs() was used to ensure the number is treated as positive (Mathematical Absolute Value)
+n = abs(int(input("Please enter a positive int (N): ")))
+# abs() was used to ensure the number is treated as positive
+# (Mathematical Absolute Value)
 
 total_sum = 0
 
