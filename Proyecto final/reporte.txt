@@ -1,0 +1,17 @@
+REPORTE FINANCIERO
+-----------------
+Ingresos: $734.087
+Gastos: $1.227.194
+Balance: $-493.107
+
+ALERTAS:
+- Estas gastando mas de lo que ganas
+
+Dia con mas gasto: 2024-01-19
+Categoria con mas gasto: Travel
+
+Meta de ahorro: $146.817
+Ahorro actual: $-493.107
+
+Consejos:
+- Intenta ahorrar mas dinero

@@ -1,5 +1,5 @@
 class Transaccion:
-    def _init_(self, fecha, categoria, monto, tipo, descripcion):
+    def __init__(self, fecha, categoria, monto, tipo, descripcion):
         self.fecha = fecha
         self.categoria = categoria
         self.monto = float(monto)
@@ -10,10 +10,9 @@ class Transaccion:
         return self.tipo == "expense"
 
     def es_ingreso(self):
-        
         return self.tipo == "income"
 
-    def _str_(self):
+    def __str__(self):
         return (
             f"{self.fecha} | {self.categoria} | "
             f"{self.monto} | {self.tipo} | {self.descripcion}"

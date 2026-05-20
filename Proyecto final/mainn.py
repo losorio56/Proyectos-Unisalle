@@ -3,18 +3,15 @@ import os
 from class_trans import Transaccion
 from zipfile import ZipFile
 
-
 # RUTA CSV
-ruta_csv = os.path.join(os.path.dirname(_file_), "finanzas.csv")
-
+ruta_csv = os.path.join(os.path.dirname(__file__), "finanzas.csv")
 
 # FUNCION FORMATO
 def formato(numero):
     return f"{round(numero):,}".replace(",", ".")
 
-# -----------------------------
-# 4. LEER CSV
-# -----------------------------
+# LEER CSV
+
 transacciones = []
 
 with open(ruta_csv, newline="", encoding="utf-8") as archivo:
@@ -30,10 +27,8 @@ with open(ruta_csv, newline="", encoding="utf-8") as archivo:
         )
         transacciones.append(t)
 
+# ANALISIS BASICO
 
-# -----------------------------
-# 5. ANALISIS BASICO
-# -----------------------------
 total_ingresos = 0
 total_gastos = 0
 gastos_por_categoria = {}
@@ -50,10 +45,8 @@ for t in transacciones:
 
         gastos_por_categoria[t.categoria] += t.monto
 
+# DIA CON MAS GASTO
 
-# -----------------------------
-# 6. DIA CON MAS GASTO
-# -----------------------------
 gastos_por_dia = {}
 
 for t in transacciones:
@@ -71,10 +64,8 @@ for dia in gastos_por_dia:
         valor_mayor = gastos_por_dia[dia]
         dia_mayor = dia
 
+# CATEGORIA CON MAS GASTO
 
-# -----------------------------
-# 7. CATEGORIA CON MAS GASTO
-# -----------------------------
 categoria_mayor = ""
 valor_categoria = 0
 
@@ -83,10 +74,40 @@ for categoria in gastos_por_categoria:
         valor_categoria = gastos_por_categoria[categoria]
         categoria_mayor = categoria
 
+# AHORRO
 
-# -----------------------------
-# 8. REPORTE
-# -----------------------------
+if total_ingresos < 1000:
+    porcentaje_ahorro = 0.1
+
+elif total_ingresos < 3000:
+    porcentaje_ahorro = 0.15
+
+else:
+    porcentaje_ahorro = 0.2
+
+meta_ahorro = total_ingresos * porcentaje_ahorro
+ahorro_actual = total_ingresos - total_gastos
+
+consejos = []
+
+if ahorro_actual < meta_ahorro:
+    consejos.append("Intenta ahorrar mas dinero")
+
+else:
+    consejos.append("Vas bien con tu ahorro")
+
+# ALERTAS
+
+alertas = []
+
+if total_gastos > total_ingresos:
+    alertas.append("Estas gastando mas de lo que ganas")
+
+if valor_mayor > total_gastos * 0.3:
+    alertas.append("Mucho gasto en un solo dia")
+
+# REPORTE
+
 with open("reporte.txt", "w", encoding="utf-8") as archivo:
     archivo.write("REPORTE FINANCIERO\n")
     archivo.write("-----------------\n")
@@ -95,6 +116,21 @@ with open("reporte.txt", "w", encoding="utf-8") as archivo:
     archivo.write("Gastos: $" + formato(total_gastos) + "\n")
     archivo.write("Balance: $" + formato(total_ingresos - total_gastos) + "\n\n")
 
+    archivo.write("ALERTAS:\n")
+    for a in alertas:
+        archivo.write("- " + a + "\n")
 
     archivo.write("\nDia con mas gasto: " + dia_mayor + "\n")
     archivo.write("Categoria con mas gasto: " + categoria_mayor + "\n")
+
+    archivo.write("\nMeta de ahorro: $" + formato(meta_ahorro) + "\n")
+    archivo.write("Ahorro actual: $" + formato(ahorro_actual) + "\n")
+
+    archivo.write("\nConsejos:\n")
+    for c in consejos:
+        archivo.write("- " + c + "\n")
+
+with ZipFile("reporte.zip", "w") as zipf:
+    zipf.write("reporte.txt")
+
+print("Programa terminado correctamente")
