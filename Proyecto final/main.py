@@ -27,39 +27,55 @@ with open(ruta_csv, newline="", encoding="utf-8") as archivo:
         )
         transacciones.append(t)
 
-# ANALISIS BASICO
+# FILTRO POR FECHA
+año = input("Ingrese el año: ")
+mes = input("Ingrese el mes (01-12): ")
 
+# SI EL MES TIENE UN SOLO DIGITO
+if len(mes) == 1:
+    mes = "0" + mes
+
+# ANALISIS BASICO
 total_ingresos = 0
 total_gastos = 0
 gastos_por_categoria = {}
 
 for t in transacciones:
-    if t.es_ingreso():
-        total_ingresos += t.monto
 
-    elif t.es_gasto():
-        total_gastos += t.monto
+    # SOLO DATOS DEL MES Y AÑO SELECCIONADO
+    if t.fecha[:4] == año and t.fecha[5:7] == mes:
 
-        if t.categoria not in gastos_por_categoria:
-            gastos_por_categoria[t.categoria] = 0
+        if t.es_ingreso():
+            total_ingresos += t.monto
 
-        gastos_por_categoria[t.categoria] += t.monto
+        elif t.es_gasto():
+            total_gastos += t.monto
+
+            if t.categoria not in gastos_por_categoria:
+                gastos_por_categoria[t.categoria] = 0
+
+            gastos_por_categoria[t.categoria] += t.monto
 
 # DIA CON MAS GASTO
-
 gastos_por_dia = {}
 
 for t in transacciones:
-    if t.es_gasto():
-        if t.fecha not in gastos_por_dia:
-            gastos_por_dia[t.fecha] = 0
 
-        gastos_por_dia[t.fecha] += t.monto
+    # SOLO DATOS DEL MES Y AÑO SELECCIONADO
+    if t.fecha[:4] == año and t.fecha[5:7] == mes:
+
+        if t.es_gasto():
+
+            if t.fecha not in gastos_por_dia:
+                gastos_por_dia[t.fecha] = 0
+
+            gastos_por_dia[t.fecha] += t.monto
 
 dia_mayor = ""
 valor_mayor = 0
 
 for dia in gastos_por_dia:
+
     if gastos_por_dia[dia] > valor_mayor:
         valor_mayor = gastos_por_dia[dia]
         dia_mayor = dia
